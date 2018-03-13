@@ -121,6 +121,10 @@ function OrbitControls ( object, domElement ) {
 
 	};
 
+	this.onZoom = function(zoomHandler) {
+		scope.zoomHandler = zoomHandler;
+	}
+
 	// this method is exposed, but perhaps it would be better if we can make it private...
 	this.update = function () {
 
@@ -373,6 +377,9 @@ function OrbitControls ( object, domElement ) {
 		if ( scope.object.isPerspectiveCamera ) {
 
 			scale /= dollyScale;
+			if(scope.zoomHandler) {
+				scope.zoomHandler();
+			}
 
 		} else if ( scope.object.isOrthographicCamera ) {
 
@@ -394,6 +401,9 @@ function OrbitControls ( object, domElement ) {
 		if ( scope.object.isPerspectiveCamera ) {
 
 			scale *= dollyScale;
+			if(scope.zoomHandler) {
+				scope.zoomHandler();
+			}
 
 		} else if ( scope.object.isOrthographicCamera ) {
 
